@@ -21,10 +21,8 @@ namespace XPlatformVR
         public GameObject headAvatar;
         public GameObject leftHandAvatar;
         public GameObject rightHandAvatar;
-        //public GameObject mapIcon;
         //public GameObject speechOnBubble;
         //public GameObject speechMutedBubble;
-        
 
         // Hand Gestures
         //[Header("Avatar Hand Poses:")]
@@ -96,7 +94,6 @@ namespace XPlatformVR
                 headAvatar.SetActive(false);
                 leftHandAvatar.SetActive(false);
                 rightHandAvatar.SetActive(false);
-                //mapIcon.SetActive(true);
 
                 // Voice Transmission (default state is ON, ALL players remote)
                 //_CurrentAvailableLocalGroupNumber = 2;          // First available group number after remote group (1)
@@ -131,9 +128,6 @@ namespace XPlatformVR
         {
             if (photonView.IsMine)
             {
-                //mapIcon.transform.position = localVRHeadset.position;
-                //mapIcon.transform.eulerAngles = new Vector3(0f, localVRHeadset.eulerAngles.y + 180f, 0f);      // Only show y-axis rotation
-
                 // AUDIO GROUPS: 
                 // Allow user to set local group
                 // Sets next available group.
@@ -304,8 +298,6 @@ namespace XPlatformVR
                 //stream.SendNext(_ShowNormalHandPose_RH);
                 //stream.SendNext(_ShowThumbUpHandPose_RH);
                 //stream.SendNext(_ShowFingerPointHandPose_RH);
-                //stream.SendNext(mapIcon.transform.position);
-                //stream.SendNext(mapIcon.transform.rotation);
 
                 //if (!_VoiceOn)
                 //{
@@ -331,8 +323,6 @@ namespace XPlatformVR
                 //_ShowNormalHandPose_RH = (bool)stream.ReceiveNext();
                 //_ShowThumbUpHandPose_RH = (bool)stream.ReceiveNext();
                 //_ShowFingerPointHandPose_RH = (bool)stream.ReceiveNext();
-                //mapIcon.transform.position = (Vector3)stream.ReceiveNext();
-                //mapIcon.transform.rotation = (Quaternion)stream.ReceiveNext();
                 //speechOnBubble.SetActive((bool)stream.ReceiveNext());         // Show network players' "Speech Bubble" when they are talking
             }
         }
