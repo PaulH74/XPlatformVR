@@ -289,34 +289,34 @@ namespace XPlatformVR
         /// <param name="info"></param>
         void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
         {
-            if (stream.IsWriting)
-            {
-                // Send local VR Headset position and rotation data to networked player
-                stream.SendNext(localVRHeadset.position);
-                stream.SendNext(localVRHeadset.rotation);
-                //stream.SendNext(localVRControllerLeft.position);
-                //stream.SendNext(localVRControllerLeft.rotation);
-                //stream.SendNext(localVRControllerRight.position);
-                //stream.SendNext(localVRControllerRight.rotation);
-                //stream.SendNext(_ShowNormalHandPose_LH);
-                //stream.SendNext(_ShowThumbUpHandPose_LH);
-                //stream.SendNext(_ShowFingerPointHandPose_LH);
-                //stream.SendNext(_ShowNormalHandPose_RH);
-                //stream.SendNext(_ShowThumbUpHandPose_RH);
-                //stream.SendNext(_ShowFingerPointHandPose_RH);
-                //stream.SendNext(mapIcon.transform.position);
-                //stream.SendNext(mapIcon.transform.rotation);
+            //if (stream.IsWriting)
+            //{
+            //    // Send local VR Headset position and rotation data to networked player
+            //    stream.SendNext(localVRHeadset.position);
+            //    stream.SendNext(localVRHeadset.rotation);
+            //    //stream.SendNext(localVRControllerLeft.position);
+            //    //stream.SendNext(localVRControllerLeft.rotation);
+            //    //stream.SendNext(localVRControllerRight.position);
+            //    //stream.SendNext(localVRControllerRight.rotation);
+            //    //stream.SendNext(_ShowNormalHandPose_LH);
+            //    //stream.SendNext(_ShowThumbUpHandPose_LH);
+            //    //stream.SendNext(_ShowFingerPointHandPose_LH);
+            //    //stream.SendNext(_ShowNormalHandPose_RH);
+            //    //stream.SendNext(_ShowThumbUpHandPose_RH);
+            //    //stream.SendNext(_ShowFingerPointHandPose_RH);
+            //    //stream.SendNext(mapIcon.transform.position);
+            //    //stream.SendNext(mapIcon.transform.rotation);
 
-                //if (!_VoiceOn)
-                //{
-                //    stream.SendNext(_VoiceOn);                                  // Do not show "Speaker Bubble" icon when "Muted"
-                //}
-                //else
-                //{
-                //    stream.SendNext(_RecorderPUN.VoiceDetector.Detected);      // Toggle "Speaker Bubble" on / off when speaking / quiet
-                //}
-            }
-            else if (stream.IsReading)
+            //    //if (!_VoiceOn)
+            //    //{
+            //    //    stream.SendNext(_VoiceOn);                                  // Do not show "Speaker Bubble" icon when "Muted"
+            //    //}
+            //    //else
+            //    //{
+            //    //    stream.SendNext(_RecorderPUN.VoiceDetector.Detected);      // Toggle "Speaker Bubble" on / off when speaking / quiet
+            //    //}
+            //}
+            if (stream.IsReading)
             {
                 // Receive networked player's VR Headset position and rotation data
                 correctPlayerHeadPosition = (Vector3)stream.ReceiveNext();

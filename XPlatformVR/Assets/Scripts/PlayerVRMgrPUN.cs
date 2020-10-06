@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-//using Photon.Voice.Unity;
-//using Photon.Voice.PUN;
+using Photon.Voice.Unity;
+using Photon.Voice.PUN;
 
 namespace XPlatformVR
 {
@@ -57,14 +57,13 @@ namespace XPlatformVR
         public GameObject ControllerLefthand;
         [Tooltip("Right Hand Controller")]
         public GameObject ControllerRighthand;
-        [Tooltip("Centre Eye Anchor")]
-        public Transform LocalVRHeadsetTF;
-        public Transform LocalVRControllerLeftTF;
-        public Transform LocalVRControllerRightTF;
+        private Transform _LocalVRHeadsetTF;
+        private Transform _LocalVRControllerLeftTF;
+        private Transform _LocalVRControllerRightTF;
 
         // Voice Elements
         //private int _CurrentAvailableLocalGroupNumber;
-        //private const byte _REMOTE_GROUP = 1;        // Listens to Remote group and ALL local groups (in list), transmits to Remote group
+        ////private const byte _REMOTE_GROUP = 1;        // Listens to Remote group and ALL local groups (in list), transmits to Remote group
         //private List<byte> _LocalGrouplist;             // Listens to Remote group, transmits to own local group
         //private Recorder _RecorderPUN;
         ////private Speaker _SpeakerPUN;
@@ -72,7 +71,7 @@ namespace XPlatformVR
         //private bool _VoiceOn;
         //public bool VoiceOn
         //{
-        //    get { return _VoiceOn; }
+            //get { return _VoiceOn; }
         //}
         #endregion
 
@@ -89,6 +88,11 @@ namespace XPlatformVR
                 CameraRig.SetActive(true);
                 ControllerLefthand.SetActive(true);
                 ControllerRighthand.SetActive(true);
+
+                // Get transform data from local VR Headset and Controllers
+                _LocalVRHeadsetTF = GameObject.Find("CenterEyeAnchor").transform;                 
+                _LocalVRControllerLeftTF = ControllerLefthand.transform;
+                _LocalVRControllerRightTF = ControllerRighthand.transform;
 
                 // Don't display our own "player" avatar to ourselves (except for map icon)
                 headAvatar.SetActive(false);
@@ -110,18 +114,18 @@ namespace XPlatformVR
             DontDestroyOnLoad(gameObject);
         }
 
-        //private void Start()
-        //{
-        //    if (photonView.IsMine)
-        //    {
-        //        // Subscribe to REMOTE group by default
-        //        ////_RecorderPUN.InterestGroup = _REMOTE_GROUP;                                                  // Transmit
-        //        ////PhotonVoiceNetwork.Instance.Client.OpChangeGroups(null, new byte[1] { _REMOTE_GROUP });      // Listen
-        //        //PhotonVoiceNetwork.Instance.Client.GlobalInterestGroup = _REMOTE_GROUP;
+        private void Start()
+        {
+            if (photonView.IsMine)
+            {
+                // Subscribe to REMOTE group by default
+                ////_RecorderPUN.InterestGroup = _REMOTE_GROUP;                                                  // Transmit
+                ////PhotonVoiceNetwork.Instance.Client.OpChangeGroups(null, new byte[1] { _REMOTE_GROUP });      // Listen
+                //PhotonVoiceNetwork.Instance.Client.GlobalInterestGroup = _REMOTE_GROUP;
 
-        //        //ToggleVoice();
-        //    }
-        //}
+                //ToggleVoice();
+            }
+        }
 
         // Update each frame
         private void Update()
@@ -286,12 +290,12 @@ namespace XPlatformVR
             if (stream.IsWriting)
             {
                 // Send local VR Headset position and rotation data to networked player
-                stream.SendNext(LocalVRHeadsetTF.position);
-                stream.SendNext(LocalVRHeadsetTF.rotation);
-                stream.SendNext(LocalVRControllerLeftTF.position);
-                stream.SendNext(LocalVRControllerLeftTF.rotation);
-                stream.SendNext(LocalVRControllerRightTF.position);
-                stream.SendNext(LocalVRControllerRightTF.rotation);
+                stream.SendNext(_LocalVRHeadsetTF.position);
+                stream.SendNext(_LocalVRHeadsetTF.rotation);
+                stream.SendNext(_LocalVRControllerLeftTF.position);
+                stream.SendNext(_LocalVRControllerLeftTF.rotation);
+                stream.SendNext(_LocalVRControllerRightTF.position);
+                stream.SendNext(_LocalVRControllerRightTF.rotation);
                 //stream.SendNext(_ShowNormalHandPose_LH);
                 //stream.SendNext(_ShowThumbUpHandPose_LH);
                 //stream.SendNext(_ShowFingerPointHandPose_LH);
