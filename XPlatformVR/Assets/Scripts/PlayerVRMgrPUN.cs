@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-//using Photon.Voice.Unity;
-//using Photon.Voice.PUN;
+using Photon.Voice.Unity;
+using Photon.Voice.PUN;
 
 namespace XPlatformVR
 {
@@ -63,7 +63,7 @@ namespace XPlatformVR
 
         // Voice Elements
         //private int _CurrentAvailableLocalGroupNumber;
-        //private const byte _REMOTE_GROUP = 1;        // Listens to Remote group and ALL local groups (in list), transmits to Remote group
+        ////private const byte _REMOTE_GROUP = 1;        // Listens to Remote group and ALL local groups (in list), transmits to Remote group
         //private List<byte> _LocalGrouplist;             // Listens to Remote group, transmits to own local group
         //private Recorder _RecorderPUN;
         ////private Speaker _SpeakerPUN;
@@ -71,7 +71,7 @@ namespace XPlatformVR
         //private bool _VoiceOn;
         //public bool VoiceOn
         //{
-        //    get { return _VoiceOn; }
+            //get { return _VoiceOn; }
         //}
         #endregion
 
@@ -114,18 +114,18 @@ namespace XPlatformVR
             DontDestroyOnLoad(gameObject);
         }
 
-        //private void Start()
-        //{
-        //    if (photonView.IsMine)
-        //    {
-        //        // Subscribe to REMOTE group by default
-        //        ////_RecorderPUN.InterestGroup = _REMOTE_GROUP;                                                  // Transmit
-        //        ////PhotonVoiceNetwork.Instance.Client.OpChangeGroups(null, new byte[1] { _REMOTE_GROUP });      // Listen
-        //        //PhotonVoiceNetwork.Instance.Client.GlobalInterestGroup = _REMOTE_GROUP;
+        private void Start()
+        {
+            if (photonView.IsMine)
+            {
+                // Subscribe to REMOTE group by default
+                ////_RecorderPUN.InterestGroup = _REMOTE_GROUP;                                                  // Transmit
+                ////PhotonVoiceNetwork.Instance.Client.OpChangeGroups(null, new byte[1] { _REMOTE_GROUP });      // Listen
+                //PhotonVoiceNetwork.Instance.Client.GlobalInterestGroup = _REMOTE_GROUP;
 
-        //        //ToggleVoice();
-        //    }
-        //}
+                //ToggleVoice();
+            }
+        }
 
         // Update each frame
         private void Update()
