@@ -16,7 +16,6 @@ namespace XPlatformVR
         // PC Player Avatar Elements
         [Header("Player Avatar (Displayed to other networked players):")]
         public GameObject headAvatar;
-        private Transform localVRHeadset;
 
         // Smoothing Variables For Remote Player's Motion
         [Header("Player Avatar Motion Smoothing:")]
@@ -38,8 +37,6 @@ namespace XPlatformVR
             if (photonView.IsMine)
             {
                 localPlayerInstance = gameObject;
-
-                localVRHeadset = transform;                 // Get transform data from local VR Headset
 
                 // Don't display our own "player" avatar to ourselves (except for map icon)
                 headAvatar.SetActive(false);
