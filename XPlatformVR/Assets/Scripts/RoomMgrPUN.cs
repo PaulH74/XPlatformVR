@@ -52,7 +52,7 @@ namespace XPlatformVR
             }
             else
             {
-                if (PlayerPCMgrPUN.localPlayerInstance == null)
+                if (PlayerVRMgrPUN.localPlayerInstance == null)
                 {
                     Debug.LogFormat("Instantiating LocalPlayer from {0}", SceneManagerHelper.ActiveSceneName);
 
