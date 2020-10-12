@@ -100,6 +100,46 @@ namespace XPlatformVR
                 // Allow user to set local group
                 // Sets next available group.
                 // Remote group players add that group to their listen list.
+
+                // Record LEFT-HAND Pose
+                if (OVRInput.Get(OVRInput.Button.PrimaryHandTrigger))         // Side Grip Button
+                {
+                    if (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger))    // Front Trigger Button
+                    {
+                        // Show 'THUMBS UP'
+                        SetLeftHandPose(false, true, false);
+                    }
+                    else
+                    {
+                        // Show 'FINGER POINT'
+                        SetLeftHandPose(false, false, true);
+                    }
+                }
+                else
+                {
+                    // Show 'NORMAL POSE'
+                    SetLeftHandPose(true, false, false);
+                }
+
+                // Record RIGHT-HAND Pose
+                if (OVRInput.Get(OVRInput.Button.SecondaryHandTrigger))         // Side Grip Button
+                {
+                    if (OVRInput.Get(OVRInput.Button.SecondaryIndexTrigger))    // Front Trigger Button
+                    {
+                        // Show 'THUMBS UP'
+                        SetRightHandPose(false, true, false);
+                    }
+                    else
+                    {
+                        // Show 'FINGER POINT'
+                        SetRightHandPose(false, false, true);
+                    }
+                }
+                else
+                {
+                    // Show 'NORMAL POSE'
+                    SetRightHandPose(true, false, false);
+                }
             }
             else
             {
