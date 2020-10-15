@@ -13,28 +13,16 @@ namespace XPlatformVR
         [Tooltip("The local player instance. Use this to know if local player is represented in the scene")]
         public static GameObject localPlayerInstance;
 
-        // Hololens Player Avatar Elements
+        // VR Avatar Elements
         [Header("Player Avatar (Displayed to other networked players):")]
         public GameObject headAvatar;
+        public GameObject mouthAnimated;
+        public GameObject mouthStatic;
         //public GameObject leftHandAvatar;
         //public GameObject rightHandAvatar;
+        private Transform localVRHeadset;
         //private Transform localVRControllerLeft;
         //private Transform localVRControllerRight;
-
-        // Hand Gestures
-        //[Header("Avatar Hand Poses:")]
-        //public SkinnedMeshRenderer poseNormalLH;
-        //public SkinnedMeshRenderer poseThumbUpLH;
-        //public SkinnedMeshRenderer poseFingerPointLH;
-        //public SkinnedMeshRenderer poseNormalRH;
-        //public SkinnedMeshRenderer poseThumbUpRH;
-        //public SkinnedMeshRenderer poseFingerPointRH;
-        //private bool _ShowNormalHandPose_LH;
-        //private bool _ShowThumbUpHandPose_LH;
-        //private bool _ShowFingerPointHandPose_LH;
-        //private bool _ShowNormalHandPose_RH;
-        //private bool _ShowThumbUpHandPose_RH;
-        //private bool _ShowFingerPointHandPose_RH;
 
         // Smoothing Variables For Remote Player's Motion
         [Header("Player Avatar Motion Smoothing:")]
@@ -57,6 +45,7 @@ namespace XPlatformVR
             {
                 localPlayerInstance = gameObject;
 
+                localVRHeadset = transform;                 // Get transform data from local VR Headset
                 //localVRControllerLeft = transform;
                 //localVRControllerRight = transform;
 
@@ -80,6 +69,9 @@ namespace XPlatformVR
         {
             if (photonView.IsMine)
             {
+                //mapIcon.transform.position = localVRHeadset.position;
+                //mapIcon.transform.eulerAngles = new Vector3(0f, localVRHeadset.eulerAngles.y + 180f, 0f);      // Only show y-axis rotation
+
                 // AUDIO GROUPS: 
                 // Allow user to set local group
                 // Sets next available group.
@@ -131,6 +123,16 @@ namespace XPlatformVR
         //}
 
         /// <summary>
+        /// Toggles Animated / Static mouth on the player avatar when they are speaking / not speaking
+        /// </summary>
+        /// <param name="animateMouth"></param>
+        private void ToggleMouthState(bool animateMouth)
+        {
+            mouthAnimated.SetActive(animateMouth);
+            mouthStatic.SetActive(!animateMouth);
+        }
+
+        /// <summary>
         /// Applies LERP interpolation to smooth the remote player's game object motion over the network. 
         /// </summary>
         /// <param name="gameObject"></param>
@@ -177,6 +179,7 @@ namespace XPlatformVR
                 //_ShowNormalHandPose_RH = (bool)stream.ReceiveNext();
                 //_ShowThumbUpHandPose_RH = (bool)stream.ReceiveNext();
                 //_ShowFingerPointHandPose_RH = (bool)stream.ReceiveNext();
+                ToggleMouthState((bool)stream.ReceiveNext());
             }
         }
         #endregion
